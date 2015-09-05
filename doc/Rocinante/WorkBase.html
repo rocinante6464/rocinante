@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class Rocinante::WorkBase - RDoc Documentation</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">Object
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-execute">#execute</a>
+    
+    <li ><a href="#method-i-report">#report</a>
+    
+    <li ><a href="#method-i-set_name">#set_name</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-Rocinante::WorkBase">
+  <h1 id="class-Rocinante::WorkBase" class="class">
+    class Rocinante::WorkBase
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <section class="constants-list">
+      <header>
+        <h3>Constants</h3>
+      </header>
+      <dl>
+      
+        <dt id="NOT_OVERRRIDE_EXECUTE">NOT_OVERRRIDE_EXECUTE
+        
+        <dd>
+        
+      
+        <dt id="NOT_OVERRRIDE_SET_NAME">NOT_OVERRRIDE_SET_NAME
+        
+        <dd>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(task_id)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File ../kernel/body/action/base/work_base.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">task_id</span>)
+  <span class="ruby-comment"># ロガーを定義</span>
+  <span class="ruby-ivar">@log</span> = <span class="ruby-constant">Logger</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">$rocinante_root</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/log/action.log&quot;</span>)
+
+  <span class="ruby-comment"># レポート情報を格納する変数を初期化</span>
+  <span class="ruby-ivar">@action_info</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-comment"># タスクＩＤ</span>
+  <span class="ruby-ivar">@action_info</span>[<span class="ruby-value">:task_id</span>] = <span class="ruby-identifier">task_id</span>
+  <span class="ruby-comment"># アクションの名前をセット</span>
+  <span class="ruby-ivar">@action_info</span>[<span class="ruby-value">:action_name</span>] = <span class="ruby-identifier">set_name</span>
+  <span class="ruby-comment"># 処理開始時間</span>
+  <span class="ruby-ivar">@action_info</span>[<span class="ruby-value">:action_start_time</span>] = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+  <span class="ruby-comment"># 実行結果（実行前だから結果セット無し）</span>
+  <span class="ruby-comment"># 実行結果 0:未実行...1:実行中...2:正常終了...-1:異常終了</span>
+  <span class="ruby-ivar">@action_info</span>[<span class="ruby-value">:result</span>] = <span class="ruby-value">0</span>
+  <span class="ruby-comment"># 結果概要（初期値）</span>
+  <span class="ruby-ivar">@action_info</span>[<span class="ruby-value">:result_detail</span>] = <span class="ruby-string">&quot;結果概要はありません。&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-execute" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">execute</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="execute-source">
+            <pre><span class="ruby-comment"># File ../kernel/body/action/base/work_base.rb, line 51</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">execute</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">NOT_OVERRRIDE_EXECUTE</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-report" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">report</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>レポートを書きます。</p>
+          
+          
+
+          
+          <div class="method-source-code" id="report-source">
+            <pre><span class="ruby-comment"># File ../kernel/body/action/base/work_base.rb, line 35</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">report</span>
+  <span class="ruby-comment"># 処理終了時間</span>
+  <span class="ruby-ivar">@action_info</span>[<span class="ruby-value">:action_end_time</span>] = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+  <span class="ruby-comment"># 処理時間</span>
+  <span class="ruby-ivar">@action_info</span>[<span class="ruby-value">:action_time</span>] = (<span class="ruby-ivar">@action_info</span>[<span class="ruby-value">:action_end_time</span>] <span class="ruby-operator">-</span> <span class="ruby-ivar">@action_info</span>[<span class="ruby-value">:action_start_time</span>]).<span class="ruby-identifier">to_f</span>
+
+  <span class="ruby-comment"># 開始時間・終了時間を文字列に変換する。</span>
+  <span class="ruby-ivar">@action_info</span>[<span class="ruby-value">:action_start_time</span>] = <span class="ruby-ivar">@action_info</span>[<span class="ruby-value">:action_start_time</span>].<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%Y/%m/%d %H:%M:%S&quot;</span>)
+  <span class="ruby-ivar">@action_info</span>[<span class="ruby-value">:action_end_time</span>] = <span class="ruby-ivar">@action_info</span>[<span class="ruby-value">:action_end_time</span>].<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%Y/%m/%d %H:%M:%S&quot;</span>)
+
+  <span class="ruby-comment"># データの更新時間を挿入</span>
+  <span class="ruby-ivar">@action_info</span>[<span class="ruby-value">:update_date</span>] = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%Y/%m/%d %H:%M:%S&quot;</span>)
+  <span class="ruby-comment"># インサート実行</span>
+  <span class="ruby-identifier">result</span> = <span class="ruby-identifier">$memory</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-string">&quot;TASK_REPORT&quot;</span>, <span class="ruby-ivar">@action_info</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-set_name" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_name</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_name-source">
+            <pre><span class="ruby-comment"># File ../kernel/body/action/base/work_base.rb, line 55</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_name</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">NOT_OVERRRIDE_SET_NAME</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
