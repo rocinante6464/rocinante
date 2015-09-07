@@ -31,6 +31,8 @@ module Rocinante
         @action_class.execute
         # アクションのレポートを出力します。
         @action_class.report
+        #
+        @action_class.set_next(task_info["SPAN_UNIT"], task_info["SPAN_VALUE"])
 
         return true
 

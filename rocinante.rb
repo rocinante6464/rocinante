@@ -49,6 +49,7 @@ module Rocinante
   require "twitter"
   require "openssl"
   require "yaml"
+  require "active_support/all"
 
   # 内部ライブラリ読み込み
   require $root[:rocinante] + "lib/tna_server/tna_server.rb"
