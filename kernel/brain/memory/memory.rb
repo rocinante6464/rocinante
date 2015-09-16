@@ -17,7 +17,6 @@
 =end
 
 module Rocinante
-
   # Memoryクラス
   class Memory
     def initialize

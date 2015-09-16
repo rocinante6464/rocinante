@@ -18,6 +18,7 @@ module Rocinante
     # アクションを実行します。
     def do_action(task_info)
       begin
+        p task_info
         # アクションファイルを読み込む
         load $root[:action] + task_info["ACTION_FILE"]
 
@@ -32,7 +33,9 @@ module Rocinante
         # アクションのレポートを出力します。
         @action_class.report
         #
-        @action_class.set_next(task_info["SPAN_UNIT"], task_info["SPAN_VALUE"])
+        if ( !task_info["SPAN_UNIT"].nil? || !task_info["SPAN_UNIT"].nil? ) then
+          @action_class.set_next(task_info["SPAN_UNIT"], task_info["SPAN_VALUE"])
+        end
 
         return true
 

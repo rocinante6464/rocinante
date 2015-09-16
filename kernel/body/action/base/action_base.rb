@@ -64,39 +64,39 @@ module Rocinante
       end
 
       # 開始日と終了日をタイムクラスに変換する
-      start_date = Time.parse(task_info[:data]["START_DATE"])
-      limit_date = Time.parse(task_info[:data]["LIMIT_DATE"])
+      start_date = Time.parse(task_info[:data][0]["START_DATE"])
+      limit_date = Time.parse(task_info[:data][0]["LIMIT_DATE"])
 
-      case (task_info[:data]["SPAN_UNIT"]).to_i
+      case (task_info[:data][0]["SPAN_UNIT"]).to_i
       when 1 then
-        start_date = start_date + ((task_info[:data]["SPAN_VALUE"].to_i) * 60)
-        limit_date = limit_date + ((task_info[:data]["SPAN_VALUE"].to_i) * 60)
+        start_date = start_date + ((task_info[:data][0]["SPAN_VALUE"].to_i) * 60)
+        limit_date = limit_date + ((task_info[:data][0]["SPAN_VALUE"].to_i) * 60)
       when 2 then
-        start_date = start_date + (task_info[:data]["SPAN_VALUE"].to_i).hour
-        limit_date = limit_date + (task_info[:data]["SPAN_VALUE"].to_i).hour
+        start_date = start_date + (task_info[:data][0]["SPAN_VALUE"].to_i).hour
+        limit_date = limit_date + (task_info[:data][0]["SPAN_VALUE"].to_i).hour
       when 3 then
-        start_date = start_date + (task_info[:data]["SPAN_VALUE"].to_i).days
-        limit_date = limit_date + (task_info[:data]["SPAN_VALUE"].to_i).days
+        start_date = start_date + (task_info[:data][0]["SPAN_VALUE"].to_i).days
+        limit_date = limit_date + (task_info[:data][0]["SPAN_VALUE"].to_i).days
       when 4 then
-        start_date = start_date + (task_info[:data]["SPAN_VALUE"].to_i).week
-        limit_date = limit_date + (task_info[:data]["SPAN_VALUE"].to_i).week
+        start_date = start_date + (task_info[:data][0]["SPAN_VALUE"].to_i).week
+        limit_date = limit_date + (task_info[:data][0]["SPAN_VALUE"].to_i).week
       when 5 then
-        start_date = start_date + (task_info[:data]["SPAN_VALUE"].to_i).month
-        limit_date = limit_date + (task_info[:data]["SPAN_VALUE"].to_i).month
+        start_date = start_date + (task_info[:data][0]["SPAN_VALUE"].to_i).month
+        limit_date = limit_date + (task_info[:data][0]["SPAN_VALUE"].to_i).month
       when 6 then
-        start_date = start_date + (task_info[:data]["SPAN_VALUE"].to_i).years
-        limit_date = limit_date + (task_info[:data]["SPAN_VALUE"].to_i).years
+        start_date = start_date + (task_info[:data][0]["SPAN_VALUE"].to_i).years
+        limit_date = limit_date + (task_info[:data][0]["SPAN_VALUE"].to_i).years
       else
         @log.error("開始日および終了日の設定に失敗しました。")
         return true
       end
 
-      task_info[:data]["START_DATE"] = start_date.strftime($DATE_FORMAT)
-      task_info[:data]["LIMIT_DATE"]   = limit_date.strftime($DATE_FORMAT)
+      task_info[:data][0]["START_DATE"] = start_date.strftime($DATE_FORMAT)
+      task_info[:data][0]["LIMIT_DATE"]   = limit_date.strftime($DATE_FORMAT)
 
-      task_info[:data].delete("TASK_ID")
+      task_info[:data][0].delete("TASK_ID")
 
-      $memory.insert("RC_TASK", task_info[:data])
+      $memory.insert("RC_TASK", task_info[:data][0])
     end
 
     def execute
